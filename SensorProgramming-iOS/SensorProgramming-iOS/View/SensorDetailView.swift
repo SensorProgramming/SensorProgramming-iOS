@@ -37,19 +37,25 @@ struct SensorDetailView: View {
                                     color: .green
                                 )
                                 
-                                // 상태 표시
+                                // 상태 표시 - 센서 값 기반으로 계산
+                                let maxDistance = 20.0
+                                let heightPercent = min(100, (status.distanceCm / maxDistance) * 100)
+                                let maxWeight = 6.0
+                                let weightPercent = min(100, (status.weightKg / maxWeight) * 100)
+                                let fillPercentage = max(heightPercent, weightPercent)
+                                
                                 StatusCard(
                                     title: "부피 기준",
                                     items: [
-                                        ("만차", status.fullByVolume ? "예" : "아니오", status.fullByVolume),
-                                        ("80% 이상", status.nearFullByVolume ? "예" : "아니오", status.nearFullByVolume)
+                                        ("만차", fillPercentage >= 100 ? "예" : "아니오", fillPercentage >= 100),
+                                        ("80% 이상", fillPercentage >= 80 ? "예" : "아니오", fillPercentage >= 80)
                                     ]
                                 )
                                 
                                 StatusCard(
                                     title: "무게 기준",
                                     items: [
-                                        ("만차", status.fullByWeight ? "예" : "아니오", status.fullByWeight)
+                                        ("만차", weightPercent >= 100 ? "예" : "아니오", weightPercent >= 100)
                                     ]
                                 )
                             }

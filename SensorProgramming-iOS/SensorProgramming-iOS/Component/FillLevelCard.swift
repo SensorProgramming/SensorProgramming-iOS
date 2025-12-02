@@ -10,15 +10,31 @@ import SwiftUI
 struct FillLevelCard: View {
     let status: BinStatus
     
-    // TODO: - 추후 정확하게 변경
     var fillPercentage: Double {
-        let maxHeight = 30.0
-        let heightPercent = max(0, min(100, ((maxHeight - status.distanceCm) / maxHeight) * 100))
+        // 센서 값으로만 계산 (거리와 무게 중 높은 값 사용)
+        // 거리 센서: 0cm = 0%, 20cm = 100%
+        let maxDistance = 16.0  // 이 값이면 100%
+        let heightPercent = min(100, (status.distanceCm / maxDistance) * 100)
         
-        let maxWeight = 6.0
+        let maxWeight = 6.0   // 쓰레기통 최대 무게 (kg)
         let weightPercent = min(100, (status.weightKg / maxWeight) * 100)
         
+        // 두 값 중 높은 값을 사용
         return max(heightPercent, weightPercent)
+    }
+    
+    // 80% 이상인지 체크
+    var isNearFull: Bool {
+        return fillPercentage >= 80
+    }
+    
+    // 100% 또는 그 이상인지 체크
+    var isFull: Bool {
+        return fillPercentage >= 100
+    }
+    
+    var isSensorError: Bool {
+        return false
     }
     
     var fillColor: Color {
@@ -80,8 +96,8 @@ struct FillLevelCard: View {
                     )
                 }
                 
-                // 경고 메시지
-                if fillPercentage >= 80 {
+                // 경고 메시지 - 센서 값 기반으로 판단
+                if isFull {
                     HStack(spacing: 12) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundColor(.red)
@@ -92,6 +108,18 @@ struct FillLevelCard: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.red.opacity(0.1))
+                    .cornerRadius(12)
+                } else if isNearFull {
+                    HStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.orange)
+                        Text("쓰레기통이 80% 이상 찼습니다.")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.orange.opacity(0.1))
                     .cornerRadius(12)
                 }
             }

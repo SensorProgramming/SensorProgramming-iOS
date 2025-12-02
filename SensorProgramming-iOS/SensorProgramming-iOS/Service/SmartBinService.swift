@@ -86,9 +86,19 @@ class SmartBinService: ObservableObject {
     private func updateLogs() {
         guard let status = binStatus else { return }
         
-        if status.isFull {
+        // 센서 값 기반으로 적재량 계산
+        let maxDistance = 20.0
+        let heightPercent = min(100, (status.distanceCm / maxDistance) * 100)
+        
+        let maxWeight = 6.0
+        let weightPercent = min(100, (status.weightKg / maxWeight) * 100)
+        
+        let fillPercentage = max(heightPercent, weightPercent)
+        
+        // 로그 생성
+        if fillPercentage >= 100 {
             addLog(message: "⚠️ 쓰레기통이 가득 찼습니다!", type: .danger)
-        } else if status.nearFullByVolume {
+        } else if fillPercentage >= 80 {
             addLog(message: "⚡ 쓰레기통이 80% 찼습니다.", type: .warning)
         }
         
@@ -96,7 +106,7 @@ class SmartBinService: ObservableObject {
             addLog(message: "🚪 뚜껑이 열렸습니다.", type: .info)
         }
     }
-    
+        
     private func addLog(message: String, type: ActivityLog.LogType) {
         let log = ActivityLog(time: Date(), message: message, type: type)
         logs.insert(log, at: 0)
