@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		339F8D9E2EDECE4100B53B2C /* ddathim.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 339F8D9D2EDECE4100B53B2C /* ddathim.mp3 */; };
+		339F8DA02EDECE8500B53B2C /* jubguengamji.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 339F8D9F2EDECE8400B53B2C /* jubguengamji.mp3 */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		339F865D2ED982B400B53B2C /* SensorProgramming-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SensorProgramming-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		339F8D9D2EDECE4100B53B2C /* ddathim.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ddathim.mp3; sourceTree = "<group>"; };
+		339F8D9F2EDECE8400B53B2C /* jubguengamji.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jubguengamji.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +52,8 @@
 		339F86542ED982B400B53B2C = {
 			isa = PBXGroup;
 			children = (
+				339F8D9F2EDECE8400B53B2C /* jubguengamji.mp3 */,
+				339F8D9D2EDECE4100B53B2C /* ddathim.mp3 */,
 				339F865F2ED982B400B53B2C /* SensorProgramming-iOS */,
 				339F865E2ED982B400B53B2C /* Products */,
 			);
@@ -122,6 +131,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				339F8D9E2EDECE4100B53B2C /* ddathim.mp3 in Resources */,
+				339F8DA02EDECE8500B53B2C /* jubguengamji.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
